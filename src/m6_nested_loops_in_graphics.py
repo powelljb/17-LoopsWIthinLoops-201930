@@ -4,15 +4,15 @@ in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Jake Powell.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    # run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -81,9 +81,42 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    center = circle.center
+    original_y = center.y
+    original_x = center.x
+    radius = circle.radius
+    for k in range(3):
+        for j in range(r):
+            new_circle = rg.Circle(center,radius)
+            new_circle.fill_color = circle.fill_color
+            new_circle.attach_to(window)
+            window.render()
+            center.y = center.y + 2*radius
+        center.x = center.x + 2*radius
+        center.y = original_y
+
+    newest = 2*radius*r
+    newest_y = original_y + newest
+    new_original_y = newest_y
+    new_point = rg.Point(original_x,newest_y)
+    for z in range(3+c):
+        for y in range(3):
+            newest_circle = rg.Circle(new_point,radius)
+            newest_circle.fill_color = circle.fill_color
+            newest_circle.attach_to(window)
+            window.render()
+            new_point.y = new_point.y + 2*radius
+        new_point.x = new_point.x + 2*radius
+        new_point.y = new_original_y
+
+
+
+
+
+
 
 
 def run_test_draw_wall_on_right():
@@ -122,9 +155,42 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    center = rectangle.get_center()
+    first_corner = rectangle.get_lower_left_corner()
+    original_first_x = first_corner.x
+    second_corner = rectangle.get_upper_right_corner()
+    original_second_x = second_corner.x
+    width = rectangle.get_width()
+    height = rectangle.get_height()
+    for k in range(n):
+        for z in range(k+1):
+            new_rectangle = rg.Rectangle(first_corner,second_corner)
+            new_rectangle.attach_to(window)
+            window.render()
+            first_corner.x = first_corner.x - width
+            second_corner.x = second_corner.x - width
+        first_corner.y = first_corner.y + height
+        second_corner.y = second_corner.y + height
+        first_corner.x = original_first_x
+        second_corner.x = original_second_x
+
+
+
+        # new_rectangle = rg.Rectangle(first_corner,second_corner)
+        # new_rectangle.attach_to(window)
+        # window.render(0.1)
+        # first_corner.x = first_corner.x - width
+        # first_corner.y = first_corner.y + height
+        # second_corner.x = second_corner.x - width
+        # second_corner.y = second_corner.y + height
+
+
+
+
+
 
 
 # -----------------------------------------------------------------------------
